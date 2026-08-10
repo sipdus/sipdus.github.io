@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sipdus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-logo-wrap">
+        <a
+          href="https://www.instagram.com/sipdus/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="header-insta-link"
+          aria-label="Instagram do Sipdus"
+        >
+          <!-- IconInstagram -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+          </svg>
+        </a>
+      </div>
+
+      <nav class="menu-direita">
+        <button class="menu-item-botao" data-scroll="integrantes">
+          <span class="menu-item">Integrantes</span>
+        </button>
+        <button class="menu-item-botao" data-scroll="sobre">
+          <span class="menu-item">Sobre</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+      <img src="assets/sipdus_logo.png" alt="Sipdus" class="hero-logo" />
+      <p class="hero-subtitulo">
+        <strong>Monitoramento não invasivo para um acompanhamento mais confortável e sem dor!</strong>
+      </p>
+    </section>
+
+    <div class="divisor"></div>
+
+    <!-- VÍDEO -->
+    <section class="secao-video">
+      <div class="secao-conteudo">
+        <div class="secao-header">
+          <h2 class="secao-titulo">Veja o protótipo em ação</h2>
+          <div class="linha"></div>
+        </div>
+
+        <div class="video-wrap">
+          <video controls>
+            <source src="assets/testes_sipdus.mp4" type="video/mp4" />
+            Seu navegador não suporta o vídeo.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <div class="divisor"></div>
+
+    <!-- SOBRE -->
+    <section class="secao" id="sobre">
+      <div class="secao-conteudo">
+        <div class="secao-header">
+          <h2 class="secao-titulo">Sobre o Projeto</h2>
+          <div class="linha"></div>
+        </div>
+
+        <p class="secao-texto">
+          O Sipdus é um projeto desenvolvido com o objetivo de explorar métodos alternativos para o monitoramento da glicemia em pessoas com diabetes. A proposta surgiu a partir da necessidade de buscar soluções que tornem o acompanhamento diário mais confortável, reduzindo o desconforto causado pelas medições tradicionais que exigem perfurações frequentes.
+          <br /><br />
+          Em fase experimental, o projeto apresenta uma alternativa tecnológica baseada em um dispositivo portátil, não invasivo e indolor, criado para auxiliar no controle da glicose de maneira mais simples e acessível. O Sipdus busca unir inovação e saúde, proporcionando uma experiência mais prática para o usuário e incentivando um acompanhamento mais frequente dos seus dados.
+        </p>
+
+        <p class="secao-texto">
+          O protótipo utiliza o sensor óptico MAX30102, originalmente desenvolvido para aplicações de oximetria e frequência cardíaca. Por meio da técnica de fotopletismografia (PPG), o sensor realiza a captura de sinais ópticos do corpo humano, permitindo a obtenção de informações fisiológicas utilizadas pelo sistema.
+          <br /><br />
+          Os dados coletados pelo dispositivo são processados pelo microcontrolador ESP32 e utilizados para a estimativa dos níveis de glicemia. A integração entre sensores, processamento de dados e algoritmos inteligentes permite o desenvolvimento de uma solução experimental voltada ao monitoramento mais confortável e eficiente.
+        </p>
+
+        <p class="secao-texto">
+          Além do dispositivo físico, o Sipdus conta com um aplicativo desenvolvido para complementar a experiência do usuário. A aplicação permite receber e organizar os dados coletados pelo protótipo, possibilitando o acompanhamento das medições, visualização do histórico e acesso às informações de saúde de forma simples e intuitiva.
+          <br /><br />
+          A comunicação entre hardware e software é realizada por meio da tecnologia Bluetooth Low Energy (BLE), permitindo a transmissão dos dados em tempo real. Dessa forma, o Sipdus apresenta uma solução integrada entre dispositivo e aplicativo, unindo mobilidade, tecnologia e praticidade para auxiliar no acompanhamento diário da glicemia.
+        </p>
+      </div>
+    </section>
+
+    <div class="divisor"></div>
+
+    <!-- OBJETIVO -->
+    <section class="secao">
+      <div class="secao-conteudo">
+        <div class="secao-header">
+          <h2 class="secao-titulo">Objetivo</h2>
+          <div class="linha"></div>
+        </div>
+
+        <p class="secao-texto">
+          O principal objetivo do Sipdus é desenvolver uma solução tecnológica capaz de auxiliar no monitoramento da glicemia de forma mais confortável, prática e acessível para pessoas com diabetes. O projeto busca integrar um dispositivo portátil e um aplicativo de acompanhamento, criando uma alternativa complementar aos métodos tradicionais de medição.
+          <br /><br />
+          A proposta é unir sensores, processamento de dados e uma aplicação mobile para facilitar o acompanhamento diário das informações de saúde. Dessa forma, o usuário pode acessar seus dados de maneira organizada, tornando o controle da glicemia mais simples e eficiente.
+        </p>
+
+        <p class="secao-texto">
+          <strong>O Sipdus não tem como objetivo substituir as tecnologias existentes</strong>, mas oferecer uma ferramenta complementar que auxilie no acompanhamento da glicemia e reduza a necessidade de punções frequentes.
+          <br /><br />
+          Por meio da integração entre hardware e software, o projeto busca aplicar a tecnologia não invasiva na área da saúde, proporcionando maior praticidade, autonomia e conforto aos usuários. Assim, o Sipdus contribui para um monitoramento mais acessível e uma melhor qualidade de vida para pessoas que convivem com a diabetes.
+        </p>
+      </div>
+    </section>
+
+    <div class="divisor"></div>
+
+    <!-- INTEGRANTES -->
+    <section class="secao" id="integrantes">
+      <div class="secao-conteudo">
+        <div class="secao-header">
+          <h2 class="secao-titulo">Integrantes</h2>
+          <div class="linha"></div>
+        </div>
+
+        <div class="membro-grid">
+          <div class="membro-coluna">
+
+            <div class="membro-card">
+              <div class="membro-foto-wrap">
+                <div class="membro-foto-bloco" style="background-color:#24C1D8"></div>
+                <img src="assets/giov.jpg" alt="Giovana" class="membro-foto" />
+              </div>
+              <div class="membro-nome-linha">
+                <span class="membro-nome-pill" style="background-color:#24C1D820; color:#24C1D8">
+                  Giovana Gomes de Souza
+                </span>
+                <a href="https://www.instagram.com/gih__gomees/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#24C1D8">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+                  </svg>
+                </a>
+              </div>
+              <p class="membro-texto">
+                Estudante do Técnico em Desenvolvimento de Sistemas na ETEC Bento Quirino, com interesse em tecnologia e desenvolvimento de soluções digitais. No projeto Sipdus, é responsável pelo desenvolvimento do aplicativo mobile, banco de dados e interface web, atuando na integração entre usuário e sistema.
+              </p>
+            </div>
+
+            <div class="membro-card">
+              <div class="membro-foto-wrap">
+                <div class="membro-foto-bloco" style="background-color:#24C1D8"></div>
+                <img src="assets/juliabeck.jpg" alt="Julia" class="membro-foto" />
+              </div>
+              <div class="membro-nome-linha">
+                <span class="membro-nome-pill" style="background-color:#24C1D820; color:#24C1D8">
+                  Julia da Silva Rodrigues Ferreira
+                </span>
+                <a href="https://www.instagram.com/jubeckxz_/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#24C1D8">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+                  </svg>
+                </a>
+              </div>
+              <p class="membro-texto">
+                Estudante do Técnico em Desenvolvimento de Sistemas, com interesse na área de tecnologia e desenvolvimento de dispositivos hardware. No projeto Sipdus, é responsável pelo desenvolvimento dos dispositivos físicos, incluindo a parte de sensores e integração com o sistema.
+              </p>
+            </div>
+
+          </div>
+
+          <div class="membro-coluna-direita">
+            <div class="membro-card">
+              <div class="membro-foto-wrap">
+                <div class="membro-foto-bloco" style="background-color:#DC1429"></div>
+                <img src="assets/julialoca.jpg" alt="Júlia" class="membro-foto" />
+              </div>
+              <div class="membro-nome-linha">
+                <span class="membro-nome-pill" style="background-color:#DC142920; color:#DC1429">
+                  Júlia Vieira Locatelli de Sousa
+                </span>
+                <a href="https://www.instagram.com/juuh_locatelli/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#DC1429">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+                  </svg>
+                </a>
+              </div>
+              <p class="membro-texto">
+                Estudante do Técnico em Desenvolvimento de Sistemas, com participação em olimpíadas científicas e hackathons. No projeto Sipdus, atua no desenvolvimento do modelo de Machine Learning, responsável pelo processamento, análise e organização dos dados utilizados pelo sistema para auxiliar na estimativa dos resultados.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divisor"></div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span class="footer-txt">@sipdus</span>
+      <span class="footer-txt">projetosipdus@gmail.com</span>
+      <span class="footer-txt">2026 • SIPDUS</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
