@@ -21,9 +21,9 @@ O Sipdus é um dispositivo portátil, não invasivo e indolor para monitoramento
 - **Impressão 3D:** PLA
 
 ## Equipe
-- **Giovana Gomes de Souza** - Desenvolvimento & Design
+- **Giovana Gomes de Souza** - Desenvolvimento & Mobile
 - **Julia da Silva Rodrigues Ferreira** - Hardware & Eletrônica
-- **Júlia Vieira Locatelli de Sousa** - Software & Mobile
+- **Júlia Vieira Locatelli de Sousa** - Software & Design
 
 ## Identidade visual
 - **Cor principal:** #24C1D8 (Azul)
