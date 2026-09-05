@@ -147,7 +147,6 @@
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; }
 
-    /* ===== FUNCIONALIDADES - 3 colunas centralizadas ===== */
     .grid-funcionalidades {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -274,7 +273,6 @@
       font-weight: 500;
     }
 
-    /* ===== MENSAGEM VERMELHA NA SOLUÇÃO ===== */
     .aviso-sipdus {
       background: var(--cor-destaque);
       color: white;
@@ -290,7 +288,6 @@
       font-weight: 700;
     }
 
-    /* ===== EQUIPE - FOTOS QUADRADAS SEM BORDA ===== */
     .membro {
       text-align: center;
     }
@@ -317,7 +314,6 @@
       margin-top: 0.3rem;
     }
 
-    /* ===== TECNOLOGIAS ===== */
     .tecnologias-grid {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
@@ -350,7 +346,6 @@
       transform: scale(1.05);
     }
 
-    /* ===== CTA COM FORMULÁRIO ===== */
     .cta-section {
       background: var(--cor-principal);
       color: white;
@@ -406,7 +401,6 @@
       min-width: 70px;
     }
 
-    /* ===== FORMULÁRIO ===== */
     .form-contato {
       background: white;
       padding: 2rem;
@@ -722,7 +716,6 @@
           </div>
         </div>
 
-        <!-- MENSAGEM VERMELHA -->
         <div class="aviso-sipdus">
           O Sipdus não busca substituir os aparelhos tradicionais ou o acompanhamento médico, mas oferecer uma alternativa para facilitar o monitoramento diário da glicose de forma mais prática e confortável.
         </div>
@@ -744,7 +737,6 @@
       </div>
     </section>
 
-    <!-- ===== FUNCIONALIDADES - FUNDO BRANCO ===== -->
     <section id="funcionalidades" class="section-alt">
       <div class="container">
         <h2 class="centered" style="display:block; text-align:center;">Funcionalidades</h2>
@@ -783,25 +775,21 @@
           </div>
         </div>
 
-        <!-- Texto abaixo das integrantes -->
         <p style="text-align:center; margin-top:1.5rem; color:var(--cor-principal-escuro); font-weight:500;">
           ETEC Bento Quirino · Técnico em Desenvolvimento de Sistemas
         </p>
       </div>
     </section>
 
-    <!-- ===== TECNOLOGIAS - FUNDO BRANCO ===== -->
     <section id="tecnologias" class="section-alt">
       <div class="container">
         <h2>Tecnologias utilizadas</h2>
 
         <div class="tecnologias-grid">
-          <!-- Lado esquerdo - Foto -->
           <div class="foto-tec">
             <img src="assets/sipdus_novo.png" alt="Dispositivo Sipdus - tecnologias">
           </div>
 
-          <!-- Lado direito - Tags -->
           <div>
             <div class="tags-tec">
               <span class="tec-tag">ESP32 LVGL</span>
@@ -825,13 +813,11 @@
       </div>
     </section>
 
-    <!-- ===== CTA COM FORMULÁRIO ===== -->
     <section id="cta">
       <div class="container">
         <div class="cta-section">
           <div class="cta-grid">
 
-            <!-- Lado esquerdo - Informações -->
             <div class="cta-info">
               <h2>Fale com a gente</h2>
               <p>Acompanhe o projeto, tire duvidas ou entre em contato com a equipe Sipdus.</p>
@@ -853,13 +839,11 @@
 
             </div>
 
-            <!-- Lado direito - Formulário -->
             <div class="form-contato">
               <h3>Envie uma mensagem</h3>
               <p class="sub">Preencha os campos abaixo e entraremos em contato.</p>
 
               <form id="formContato" action="https://formsubmit.co/9bcc33fd5c744f9eef1a28c22d5bb00b" method="POST">
-                <!-- Proteção contra spam -->
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="Novo contato - Sipdus">
                 <input type="hidden" name="_next" value="https://sipdus.github.io/#cta?enviado=true">
@@ -922,7 +906,6 @@
   </footer>
 
   <script>
-    // Menu toggle
     const toggle = document.getElementById('menuToggle');
     const menu = document.getElementById('navMenu');
 
@@ -939,12 +922,10 @@
       });
     });
 
-    // Validação do formulário e feedback
     const form = document.getElementById('formContato');
     const feedback = document.getElementById('formFeedback');
 
     form.addEventListener('submit', function(e) {
-      // Validação básica antes de enviar
       const nome = document.getElementById('nome').value.trim();
       const email = document.getElementById('email').value.trim();
       const assunto = document.getElementById('assunto').value;
@@ -957,7 +938,6 @@
         return;
       }
 
-      // Validação de email simples
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         e.preventDefault();
@@ -965,18 +945,30 @@
         feedback.textContent = 'Por favor, insira um email valido.';
         return;
       }
-
-      // Se validou, mostra mensagem de sucesso (o formsubmit envia o email)
-      feedback.className = 'form-mensagem sucesso';
-      feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
     });
 
-    // Se a URL tiver ?enviado=true, mostra mensagem de sucesso
     if (window.location.search.includes('enviado=true')) {
-      feedback.className = 'form-mensagem sucesso';
-      feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
-      // Remove o parametro da URL sem recarregar
-      window.history.replaceState({}, document.title, window.location.pathname);
+      const feedback = document.getElementById('formFeedback');
+      if (feedback) {
+        feedback.className = 'form-mensagem sucesso';
+        feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+      }
+      
+      setTimeout(function() {
+        const cta = document.getElementById('cta');
+        if (cta) {
+          cta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        setTimeout(function() {
+          const ctaSection = document.getElementById('cta');
+          if (ctaSection) {
+            const topo = ctaSection.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: topo, behavior: 'smooth' });
+          }
+        }, 100);
+      }, 300);
+
+      window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
     }
   </script>
 </body>

@@ -29,8 +29,8 @@ O Sipdus é um dispositivo portátil, não invasivo e indolor para monitoramento
 ![Logo Sipdus](assets/sipdus_logo.png)
 - **Cor principal:** #24C1D8 (Azul)
 - **Cor secundária:** #1A9BB0 (Azul escuro)
-- **Cor destaque:** #DC1429 (Vermelho)
 - **Cor de fundo:** #F0EEEE (Branco/cinza)
+- **Cor destaque:** #DC1429 (Vermelho)
 - **Tipografia:** Inter (Google Fonts)
 
 ## Links
