@@ -26,7 +26,7 @@ O Sipdus é um dispositivo portátil, não invasivo e indolor para monitoramento
 - **Júlia Vieira Locatelli de Sousa** - Software & Design
 
 ## Identidade visual
-![Logo Sipdus](assets/logo_sipdus.png)
+![Logo Sipdus](assets/sipdus_logo.png)
 - **Cor principal:** #24C1D8 (Azul)
 - **Cor secundária:** #1A9BB0 (Azul escuro)
 - **Cor destaque:** #DC1429 (Vermelho)
