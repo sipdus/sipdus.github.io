@@ -1,231 +1,983 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sipdus</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;800;900&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>Sipdus · Glicosímetro Não Invasivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F0EEEE;
+      color: #1A1A2E;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    :root {
+      --cor-principal: #24C1D8;
+      --cor-principal-escuro: #1A9BB0;
+      --cor-destaque: #DC1429;
+      --cor-destaque-escuro: #B81022;
+      --cor-fundo: #F0EEEE;
+      --cor-texto: #1A1A2E;
+      --cor-card: #FFFFFF;
+      --sombra: 0 8px 30px rgba(36, 193, 216, 0.15);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      color: var(--cor-texto);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      position: relative;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--cor-destaque);
+      border-radius: 4px;
+    }
+    h2.centered::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .texto-destaque { color: var(--cor-destaque); font-weight: 700; }
+
+    .badge {
+      display: inline-block;
+      background: var(--cor-destaque);
+      color: white;
+      padding: 0.15rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    header {
+      background: var(--cor-principal);
+      padding: 0.6rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 16px rgba(36, 193, 216, 0.25);
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+    .logo-texto {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 1.6rem;
+      padding: 0 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.2rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+    .nav-menu a:hover {
+      color: white;
+      border-bottom-color: var(--cor-destaque);
+    }
+
+    section {
+      padding: 3.5rem 0;
+      scroll-margin-top: 80px;
+    }
+    .section-alt { background: white; }
+    .section-soft { background: var(--cor-fundo); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; }
+
+    /* ===== FUNCIONALIDADES - 3 colunas centralizadas ===== */
+    .grid-funcionalidades {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--cor-card);
+      padding: 1.8rem 1.5rem;
+      border-radius: 20px;
+      box-shadow: var(--sombra);
+      border: 1px solid rgba(36, 193, 216, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(36, 193, 216, 0.2);
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--cor-principal-escuro);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E8F8FA 100%);
+      border-radius: 32px;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--cor-principal);
+    }
+    .hero-content { flex: 1 1 300px; }
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-logo img {
+      height: 60px;
+      width: auto;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      line-height: 1.15;
+      color: var(--cor-texto);
+    }
+    .hero .slogan {
+      font-size: 1.2rem;
+      color: var(--cor-principal-escuro);
+      font-weight: 600;
+      margin: 0.25rem 0 0.5rem;
+    }
+    .hero p { max-width: 500px; font-size: 1.05rem; }
+
+    .hero-imagem-lateral {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+    .hero-imagem-lateral img {
+      max-width: 100%;
+      max-height: 280px;
+      border-radius: 20px;
+      object-fit: contain;
+      margin-left: -30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--cor-destaque);
+      color: white;
+      padding: 0.7rem 2.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 0.75rem;
+      transition: 0.25s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn:hover {
+      background: var(--cor-destaque-escuro);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(220, 20, 41, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--cor-principal);
+      color: var(--cor-principal-escuro);
+    }
+    .btn-outline:hover {
+      background: var(--cor-principal);
+      color: white;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      background: #000;
+    }
+    .video-container video {
+      width: 100%;
+      display: block;
+    }
+    .video-legenda {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* ===== MENSAGEM VERMELHA NA SOLUÇÃO ===== */
+    .aviso-sipdus {
+      background: var(--cor-destaque);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+      box-shadow: 0 6px 20px rgba(220, 20, 41, 0.25);
+    }
+    .aviso-sipdus strong {
+      font-weight: 700;
+    }
+
+    /* ===== EQUIPE - FOTOS QUADRADAS SEM BORDA ===== */
+    .membro {
+      text-align: center;
+    }
+    .membro .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin: 0 auto 0.6rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .membro .avatar:hover {
+      transform: scale(1.05);
+    }
+    .membro .funcao {
+      font-size: 0.82rem;
+      color: var(--cor-principal-escuro);
+      font-weight: 600;
+    }
+    .membro .bio {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== TECNOLOGIAS ===== */
+    .tecnologias-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .tecnologias-grid .foto-tec img {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 20px;
+      display: block;
+    }
+    .tecnologias-grid .tags-tec {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tec-tag {
+      background: var(--cor-principal);
+      color: white;
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .tec-tag:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== CTA COM FORMULÁRIO ===== */
+    .cta-section {
+      background: var(--cor-principal);
+      color: white;
+      border-radius: 32px;
+      padding: 3rem 2.5rem;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .cta-info h2 {
+      color: white;
+      border-bottom: none;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .cta-info h2::after {
+      background: var(--cor-destaque);
+    }
+
+    .cta-info p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-contatos {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .cta-contatos a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: 0.2s;
+    }
+    .cta-contatos a:hover {
+      color: white;
+      padding-left: 0.5rem;
+    }
+    .cta-contatos .label {
+      font-weight: 300;
+      opacity: 0.6;
+      font-size: 0.8rem;
+      min-width: 70px;
+    }
+
+    /* ===== FORMULÁRIO ===== */
+    .form-contato {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    .form-contato h3 {
+      color: var(--cor-texto);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+    .form-contato .sub {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--cor-texto);
+      margin-bottom: 0.3rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+      background: #F8FAFC;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cor-principal);
+      background: white;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-group .btn-enviar {
+      background: var(--cor-destaque);
+      color: white;
+      padding: 0.8rem 2.5rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.25s;
+      width: 100%;
+    }
+    .form-group .btn-enviar:hover {
+      background: var(--cor-destaque-escuro);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(220, 20, 41, 0.35);
+    }
+
+    .form-mensagem {
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    .form-mensagem.sucesso {
+      display: block;
+      background: #D4EDDA;
+      color: #155724;
+      border: 1px solid #C3E6CB;
+    }
+    .form-mensagem.erro {
+      display: block;
+      background: #F8D7DA;
+      color: #721C24;
+      border: 1px solid #F5C6CB;
+    }
+
+    footer {
+      padding: 2.5rem 0 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6B6B80;
+      border-top: 1px solid #E2E8F0;
+      margin-top: 1rem;
+    }
+    footer .footer-principal {
+      font-weight: 600;
+      color: var(--cor-texto);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    footer .footer-secundario {
+      font-size: 0.85rem;
+      color: #6B6B80;
+      margin-bottom: 0.8rem;
+    }
+    footer .footer-links a {
+      color: var(--cor-principal-escuro);
+      text-decoration: none;
+      margin: 0 0.8rem;
+      font-weight: 500;
+    }
+    footer .footer-links a:hover { color: var(--cor-destaque); }
+    footer .footer-contatos {
+      font-size: 0.8rem;
+      color: #8A8AA0;
+      margin-top: 0.8rem;
+    }
+    footer .footer-contatos a {
+      color: var(--cor-principal-escuro);
+      text-decoration: none;
+    }
+    footer .footer-contatos a:hover {
+      color: var(--cor-destaque);
+    }
+
+    @media (max-width: 992px) {
+      .grid-funcionalidades {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
+      }
+      .cta-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .tecnologias-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .tecnologias-grid .foto-tec img {
+        margin: 0 auto;
+        max-width: 250px;
+      }
+      .tecnologias-grid .tags-tec {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0 0.5rem;
+        gap: 0.5rem;
+      }
+      .nav-menu.aberto { display: flex; }
+      .nav-menu a { padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .grid-funcionalidades {
+        grid-template-columns: 1fr 1fr;
+        max-width: 100%;
+      }
+
+      .hero { padding: 2rem 1.5rem; }
+      .hero h1 { font-size: 2.2rem; }
+      section { padding: 2.5rem 0; }
+      .container { padding: 0 16px; }
+      h2 { font-size: 1.8rem; }
+      
+      .membro .avatar {
+        width: 130px;
+        height: 130px;
+      }
+
+      .hero-imagem-lateral img {
+        max-height: 200px;
+      }
+
+      .cta-section {
+        padding: 2rem 1.5rem;
+      }
+      .form-contato {
+        padding: 1.5rem;
+      }
+
+      .aviso-sipdus {
+        font-size: 0.9rem;
+        padding: 1.2rem 1.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .grid-funcionalidades {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+      .hero { padding: 1.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero-logo img { height: 45px; }
+      .logo img { height: 32px; }
+      .hero-imagem-lateral img {
+        max-height: 150px;
+      }
+      .membro .avatar {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--cor-destaque);
+      outline-offset: 4px;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="container">
+  <header>
+    <div class="container nav-container">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <ul class="nav-menu" id="navMenu" role="navigation">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#solucao">Solução</a></li>
+        <li><a href="#comparacao">Comparação</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#tecnologias">Tecnologias</a></li>
+      </ul>
+    </div>
+  </header>
 
-    <!-- HEADER -->
-    <header class="header">
-      <div class="header-logo-wrap">
-        <a
-          href="https://www.instagram.com/sipdus/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="header-insta-link"
-          aria-label="Instagram do Sipdus"
-        >
-          <!-- IconInstagram -->
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
-            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
-            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
-          </svg>
-        </a>
+  <main>
+
+    <section id="inicio">
+      <div class="container hero">
+        <div class="hero-content">
+          <div class="hero-logo">
+            <span class="badge">GNI</span>
+          </div>
+          <h1>Monitoramento glicêmico<br><span class="texto-destaque">não invasivo</span> e confortável</h1>
+          <div class="slogan">E se medir sua glicose não precisasse mais doer?</div>
+          <p>Dispositivo portátil e inteligente para a estimativa de glicose sem punção e o monitoramento de BPM e SpO₂ em tempo real.</p>
+        </div>
+        <div class="hero-imagem-lateral">
+          <img src="assets/sipdus_logo.png" alt="Dispositivo Sipdus GNI - prototipo">
+        </div>
       </div>
-
-      <nav class="menu-direita">
-        <button class="menu-item-botao" data-scroll="integrantes">
-          <span class="menu-item">Integrantes</span>
-        </button>
-        <button class="menu-item-botao" data-scroll="sobre">
-          <span class="menu-item">Sobre</span>
-        </button>
-      </nav>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-blob hero-blob-1"></div>
-      <div class="hero-blob hero-blob-2"></div>
-      <img src="assets/sipdus_logo.png" alt="Sipdus" class="hero-logo" />
-      <p class="hero-subtitulo">
-        <strong>Monitoramento não invasivo para um acompanhamento mais confortável e sem dor!</strong>
-      </p>
     </section>
 
-    <div class="divisor"></div>
+    <section id="sobre" class="section-alt">
+      <div class="container">
+        <h2>Sobre o projeto</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Objetivo</h3>
+            <p>Tornar o acompanhamento da glicose mais prático, acessível e confortável, utilizando tecnologia para facilitar o cuidado com a saúde.</p>
+           </div>
+          <div class="card">
+            <h3>Contexto</h3>
+            <p>O Brasil tem cerca de <strong>20 milhoes</strong> de adultos com diabetes. O acompanhamento frequente da glicose é essencial, mas os métodos tradicionais podem ser desconfortáveis e gerar custos recorrentes.</p>
+          </div>
+          <div class="card">
+            <h3>Características principais</h3>
+            <p>Sensor óptico MAX30102 + ESP32 com display touch + aplicativo mobile com gráficos, diário alimentar e alertas automáticos.</p>
+          </div>
+          <div class="card">
+            <h3>Diferencial</h3>
+            <p>Uma alternativa à medição tradicional, <strong>sem necessidade de punção</strong>, com menos materiais descartáveis e mais praticidade no dia a dia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- VÍDEO -->
-    <section class="secao-video">
-      <div class="secao-conteudo">
-        <div class="secao-header">
-          <h2 class="secao-titulo">Veja o protótipo em ação</h2>
-          <div class="linha"></div>
+    <section id="problema" class="section-soft">
+      <div class="container">
+        <h2>O problema</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Quem é afetado?</h3>
+            <p>Pessoas com diabetes Tipo 1, Tipo 2 e gestacional, especialmente aquelas com acesso limitado a tecnologias médicas e que dependem de métodos invasivos diariamente.</p>
+          </div>
+          <div class="card">
+            <h3>Contexto</h3>
+            <p>Métodos convencionais exigem múltiplas punções por dia, causando dor, desconforto, risco de infecções e baixa adesão ao tratamento a longo prazo.</p>
+          </div>
+          <div class="card" style="grid-column: 1 / -1;">
+            <h3>O problema central</h3>
+            <p><strong>Falta de dispositivos realmente não invasivos</strong> no mercado brasileiro. A Anvisa ainda não regulamenta alternativas aos métodos tradicionais devido à escassez de pesquisas e validações. Além disso, há carência de aplicativos eficazes para acompanhamento diário, fazendo com que o paciente dependa da própria memória para registrar medições.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucao" class="section-alt">
+      <div class="container">
+        <h2>A solução Sipdus</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Como funciona</h3>
+            <p>Utiliza <strong>fotopletismografia (PPG)</strong> com o sensor MAX30102 para captar variações no volume sanguíneo. Algoritmos de Machine Learning, como Regressão Linear, relacionam esses sinais aos níveis glicêmicos.</p>
+          </div>
+          <div class="card">
+            <h3>Relação com o problema</h3>
+            <p>Substitui as punções diárias por uma leitura indolor e contínua. Reduz os custos com tiras descartáveis e elimina o desconforto, contribuindo para uma maior adesão ao tratamento.</p>
+          </div>
+          <div class="card">
+            <h3>Principais características</h3>
+            <p>Monitoramento em tempo real de glicose, BPM e SpO₂, além de um aplicativo com gráficos personalizados, diário alimentar, alertas automáticos e seção educativa sobre diabetes.</p>
+          </div>
         </div>
 
-        <div class="video-wrap">
-          <video controls>
-            <source src="assets/testes_sipdus.mp4" type="video/mp4" />
-            Seu navegador não suporta o vídeo.
+        <!-- MENSAGEM VERMELHA -->
+        <div class="aviso-sipdus">
+          O Sipdus não busca substituir os aparelhos tradicionais ou o acompanhamento médico, mas oferecer uma alternativa para facilitar o monitoramento diário da glicose de forma mais prática e confortável.
+        </div>
+      </div>
+    </section>
+
+    <section id="comparacao" class="section-soft">
+      <div class="container">
+        <h2 class="centered" style="display:block; text-align:center;">Sipdus vs. Glicosímetro Tradicional</h2>
+        <p style="text-align:center; margin-bottom:1.5rem; color:#666; max-width:600px; margin-left:auto; margin-right:auto;">
+          Assista ao vídeo de comparação entre o dispositivo Sipdus e um glicosímetro convencional.
+        </p>
+        <div class="video-container">
+          <video controls preload="metadata" poster="assets/sipdus_logo.png">
+            <source src="assets/testes_sipdus.mp4" type="video/mp4">
+            Seu navegador nao suporta a reproducao de videos.
           </video>
         </div>
       </div>
     </section>
 
-    <div class="divisor"></div>
+    <!-- ===== FUNCIONALIDADES - FUNDO BRANCO ===== -->
+    <section id="funcionalidades" class="section-alt">
+      <div class="container">
+        <h2 class="centered" style="display:block; text-align:center;">Funcionalidades</h2>
+        <div class="grid-funcionalidades">
+          <div class="card"><h3>Medição não invasiva</h3><p>Leitura de glicose, BPM e SpO₂ sem perfurações, utilizando o sensor óptico MAX30102.</p></div>
+          <div class="card"><h3>Gráficos personalizados</h3><p>Histórico de medições com gráficos para melhor acompanhamento no aplicativo mobile.</p></div>
+          <div class="card"><h3>App mobile</h3><p>React Native com login, dashboards, diário alimentar e alertas automáticos.</p></div>
+          <div class="card"><h3>Machine Learning</h3><p>Algoritmos de regressão linear para calibração e estimativa da glicemia.</p></div>
+          <div class="card"><h3>Assistente virtual</h3><p>Responde dúvidas por voz sobre diabetes, medições e cuidados, tornando o acompanhamento mais acessível.</p></div>
+          <div class="card"><h3>Sustentabilidade</h3><p>Sem tiras descartáveis, vida útil estendida e baixo impacto ambiental.</p></div>
+        </div>
+      </div>
+    </section>
 
-    <!-- SOBRE -->
-    <section class="secao" id="sobre">
-      <div class="secao-conteudo">
-        <div class="secao-header">
-          <h2 class="secao-titulo">Sobre o Projeto</h2>
-          <div class="linha"></div>
+    <section id="equipe" class="section-soft">
+      <div class="container">
+        <h2 class="centered" style="display:block; text-align:center;">Equipe Sipdus</h2>
+        <div class="grid-3">
+          <div class="card membro">
+            <img src="assets/giov.jpg" alt="Giovana Gomes de Souza" class="avatar">
+            <h3>Giovana Gomes de Souza</h3>
+            <span class="funcao">Desenvolvimento & Mobile</span>
+            <p class="bio">É responsável pelo desenvolvimento do aplicativo mobile, banco de dados e interface web, atuando na integração entre usuário e sistema e garantindo uma experiência prática e intuitiva.</p>
+          </div>
+          <div class="card membro">
+            <img src="assets/juliabeck.jpg" alt="Julia da Silva Rodrigues Ferreira" class="avatar">
+            <h3>Julia da Silva Rodrigues Ferreira</h3>
+            <span class="funcao">Hardware & Eletrônica</span>
+            <p class="bio">Atua no desenvolvimento dos dispositivos físicos, incluindo sensores, integração com o sistema e criação da carcaça 3D, garantindo o funcionamento e a organização dos componentes.</p>
+          </div>
+          <div class="card membro">
+            <img src="assets/julialoca.jpg" alt="Julia Vieira Locatelli de Sousa" class="avatar">
+            <h3>Julia Vieira Locatelli de Sousa</h3>
+            <span class="funcao">Software & Design</span>
+            <p class="bio">Responsável pelo desenvolvimento do modelo de Machine Learning, responsável pelo processamento, análise e organização dos dados utilizados pelo sistema para auxiliar na estimativa dos resultados.</p>
+          </div>
         </div>
 
-        <p class="secao-texto">
-          O Sipdus é um projeto desenvolvido com o objetivo de explorar métodos alternativos para o monitoramento da glicemia em pessoas com diabetes. A proposta surgiu a partir da necessidade de buscar soluções que tornem o acompanhamento diário mais confortável, reduzindo o desconforto causado pelas medições tradicionais que exigem perfurações frequentes.
-          <br /><br />
-          Em fase experimental, o projeto apresenta uma alternativa tecnológica baseada em um dispositivo portátil, não invasivo e indolor, criado para auxiliar no controle da glicose de maneira mais simples e acessível. O Sipdus busca unir inovação e saúde, proporcionando uma experiência mais prática para o usuário e incentivando um acompanhamento mais frequente dos seus dados.
-        </p>
-
-        <p class="secao-texto">
-          O protótipo utiliza o sensor óptico MAX30102, originalmente desenvolvido para aplicações de oximetria e frequência cardíaca. Por meio da técnica de fotopletismografia (PPG), o sensor realiza a captura de sinais ópticos do corpo humano, permitindo a obtenção de informações fisiológicas utilizadas pelo sistema.
-          <br /><br />
-          Os dados coletados pelo dispositivo são processados pelo microcontrolador ESP32 e utilizados para a estimativa dos níveis de glicemia. A integração entre sensores, processamento de dados e algoritmos inteligentes permite o desenvolvimento de uma solução experimental voltada ao monitoramento mais confortável e eficiente.
-        </p>
-
-        <p class="secao-texto">
-          Além do dispositivo físico, o Sipdus conta com um aplicativo desenvolvido para complementar a experiência do usuário. A aplicação permite receber e organizar os dados coletados pelo protótipo, possibilitando o acompanhamento das medições, visualização do histórico e acesso às informações de saúde de forma simples e intuitiva.
-          <br /><br />
-          A comunicação entre hardware e software é realizada por meio da tecnologia Bluetooth Low Energy (BLE), permitindo a transmissão dos dados em tempo real. Dessa forma, o Sipdus apresenta uma solução integrada entre dispositivo e aplicativo, unindo mobilidade, tecnologia e praticidade para auxiliar no acompanhamento diário da glicemia.
+        <!-- Texto abaixo das integrantes -->
+        <p style="text-align:center; margin-top:1.5rem; color:var(--cor-principal-escuro); font-weight:500;">
+          ETEC Bento Quirino · Técnico em Desenvolvimento de Sistemas
         </p>
       </div>
     </section>
 
-    <div class="divisor"></div>
+    <!-- ===== TECNOLOGIAS - FUNDO BRANCO ===== -->
+    <section id="tecnologias" class="section-alt">
+      <div class="container">
+        <h2>Tecnologias utilizadas</h2>
 
-    <!-- OBJETIVO -->
-    <section class="secao">
-      <div class="secao-conteudo">
-        <div class="secao-header">
-          <h2 class="secao-titulo">Objetivo</h2>
-          <div class="linha"></div>
-        </div>
+        <div class="tecnologias-grid">
+          <!-- Lado esquerdo - Foto -->
+          <div class="foto-tec">
+            <img src="assets/sipdus_novo.png" alt="Dispositivo Sipdus - tecnologias">
+          </div>
 
-        <p class="secao-texto">
-          O principal objetivo do Sipdus é desenvolver uma solução tecnológica capaz de auxiliar no monitoramento da glicemia de forma mais confortável, prática e acessível para pessoas com diabetes. O projeto busca integrar um dispositivo portátil e um aplicativo de acompanhamento, criando uma alternativa complementar aos métodos tradicionais de medição.
-          <br /><br />
-          A proposta é unir sensores, processamento de dados e uma aplicação mobile para facilitar o acompanhamento diário das informações de saúde. Dessa forma, o usuário pode acessar seus dados de maneira organizada, tornando o controle da glicemia mais simples e eficiente.
-        </p>
-
-        <p class="secao-texto">
-          <strong>O Sipdus não tem como objetivo substituir as tecnologias existentes</strong>, mas oferecer uma ferramenta complementar que auxilie no acompanhamento da glicemia e reduza a necessidade de punções frequentes.
-          <br /><br />
-          Por meio da integração entre hardware e software, o projeto busca aplicar a tecnologia não invasiva na área da saúde, proporcionando maior praticidade, autonomia e conforto aos usuários. Assim, o Sipdus contribui para um monitoramento mais acessível e uma melhor qualidade de vida para pessoas que convivem com a diabetes.
-        </p>
-      </div>
-    </section>
-
-    <div class="divisor"></div>
-
-    <!-- INTEGRANTES -->
-    <section class="secao" id="integrantes">
-      <div class="secao-conteudo">
-        <div class="secao-header">
-          <h2 class="secao-titulo">Integrantes</h2>
-          <div class="linha"></div>
-        </div>
-
-        <div class="membro-grid">
-          <div class="membro-coluna">
-
-            <div class="membro-card">
-              <div class="membro-foto-wrap">
-                <div class="membro-foto-bloco" style="background-color:#24C1D8"></div>
-                <img src="assets/giov.jpg" alt="Giovana" class="membro-foto" />
-              </div>
-              <div class="membro-nome-linha">
-                <span class="membro-nome-pill" style="background-color:#24C1D820; color:#24C1D8">
-                  Giovana Gomes de Souza
-                </span>
-                <a href="https://www.instagram.com/gih__gomees/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#24C1D8">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
-                  </svg>
-                </a>
-              </div>
-              <p class="membro-texto">
-                Estudante do Técnico em Desenvolvimento de Sistemas na ETEC Bento Quirino, com interesse em tecnologia e desenvolvimento de soluções digitais. No projeto Sipdus, é responsável pelo desenvolvimento do aplicativo mobile, banco de dados e interface web, atuando na integração entre usuário e sistema.
-              </p>
+          <!-- Lado direito - Tags -->
+          <div>
+            <div class="tags-tec">
+              <span class="tec-tag">ESP32 LVGL</span>
+              <span class="tec-tag">MAX30102</span>
+              <span class="tec-tag">Display Touch</span>
+              <span class="tec-tag">React Native</span>
+              <span class="tec-tag">Bluetooth</span>
+              <span class="tec-tag">Machine Learning</span>
+              <span class="tec-tag">Regressão Linear</span>
+              <span class="tec-tag">Python</span>
+              <span class="tec-tag">C++</span>
+              <span class="tec-tag">JavaScript</span>
+              <span class="tec-tag">PLA · Impressão 3D</span>
             </div>
 
-            <div class="membro-card">
-              <div class="membro-foto-wrap">
-                <div class="membro-foto-bloco" style="background-color:#24C1D8"></div>
-                <img src="assets/juliabeck.jpg" alt="Julia" class="membro-foto" />
-              </div>
-              <div class="membro-nome-linha">
-                <span class="membro-nome-pill" style="background-color:#24C1D820; color:#24C1D8">
-                  Julia da Silva Rodrigues Ferreira
-                </span>
-                <a href="https://www.instagram.com/jubeckxz_/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#24C1D8">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
-                  </svg>
+            <p style="margin-top:1.5rem; background:white; padding:1rem 1.5rem; border-radius:16px; box-shadow:var(--sombra);">
+              <strong>Diferencial técnico:</strong> O sensor MAX30102 foi adaptado para estimativa glicêmica usando <strong>fotopletismografia (PPG)</strong> e calibração com Machine Learning, comparado com glicosímetros tradicionais em testes com voluntários.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA COM FORMULÁRIO ===== -->
+    <section id="cta">
+      <div class="container">
+        <div class="cta-section">
+          <div class="cta-grid">
+
+            <!-- Lado esquerdo - Informações -->
+            <div class="cta-info">
+              <h2>Fale com a gente</h2>
+              <p>Acompanhe o projeto, tire duvidas ou entre em contato com a equipe Sipdus.</p>
+
+              <div class="cta-contatos">
+                <a href="mailto:projetosipdus@gmail.com" target="_blank">
+                  <span class="label">Email</span>
+                  projetosipdus@gmail.com
+                </a>
+                <a href="https://www.instagram.com/sipdus/?hl=pt" target="_blank">
+                  <span class="label">Instagram</span>
+                  @sipdus
+                </a>
+                <a href="https://www.linkedin.com/in/sipdus-glicos%C3%ADmetro-n%C3%A3o-invasivo-3091ba389/" target="_blank">
+                  <span class="label">LinkedIn</span>
+                  Sipdus GNI
                 </a>
               </div>
-              <p class="membro-texto">
-                Estudante do Técnico em Desenvolvimento de Sistemas, com interesse na área de tecnologia e desenvolvimento de dispositivos hardware. No projeto Sipdus, é responsável pelo desenvolvimento dos dispositivos físicos, incluindo a parte de sensores e integração com o sistema.
-              </p>
+
+            </div>
+
+            <!-- Lado direito - Formulário -->
+            <div class="form-contato">
+              <h3>Envie uma mensagem</h3>
+              <p class="sub">Preencha os campos abaixo e entraremos em contato.</p>
+
+              <form id="formContato" action="https://formsubmit.co/projetosipdus@gmail.com" method="POST">
+                <!-- Proteção contra spam -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="Novo contato - Sipdus">
+                <input type="hidden" name="_next" value="?enviado=true">
+
+                <div class="form-group">
+                  <label for="nome">Nome</label>
+                  <input type="text" id="nome" name="Nome" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="Email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="assunto">Assunto</label>
+                  <select id="assunto" name="Assunto" required>
+                    <option value="">Selecione um assunto</option>
+                    <option value="Duvida sobre o projeto">Duvida sobre o projeto</option>
+                    <option value="Parceria ou colaboracao">Parceria ou colaboracao</option>
+                    <option value="Imprensa e divulgacao">Imprensa e divulgacao</option>
+                    <option value="Sugestao ou feedback">Sugestao ou feedback</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="mensagem">Mensagem</label>
+                  <textarea id="mensagem" name="Mensagem" placeholder="Descreva sua duvida ou necessidade" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn-enviar">Enviar mensagem</button>
+                </div>
+
+                <div id="formFeedback" class="form-mensagem"></div>
+              </form>
             </div>
 
           </div>
-
-          <div class="membro-coluna-direita">
-            <div class="membro-card">
-              <div class="membro-foto-wrap">
-                <div class="membro-foto-bloco" style="background-color:#DC1429"></div>
-                <img src="assets/julialoca.jpg" alt="Júlia" class="membro-foto" />
-              </div>
-              <div class="membro-nome-linha">
-                <span class="membro-nome-pill" style="background-color:#DC142920; color:#DC1429">
-                  Júlia Vieira Locatelli de Sousa
-                </span>
-                <a href="https://www.instagram.com/juuh_locatelli/" target="_blank" rel="noopener noreferrer" class="membro-insta-link" style="color:#DC1429">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
-                    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
-                  </svg>
-                </a>
-              </div>
-              <p class="membro-texto">
-                Estudante do Técnico em Desenvolvimento de Sistemas, com participação em olimpíadas científicas e hackathons. No projeto Sipdus, atua no desenvolvimento do modelo de Machine Learning, responsável pelo processamento, análise e organização dos dados utilizados pelo sistema para auxiliar na estimativa dos resultados.
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
 
-    <div class="divisor"></div>
+  </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <span class="footer-txt">@sipdus</span>
-      <span class="footer-txt">projetosipdus@gmail.com</span>
-      <span class="footer-txt">2026 • SIPDUS</span>
-    </footer>
+  <footer>
+    <div class="container">
+      <div class="footer-principal">Sipdus · Glicosimetro Nao Invasivo</div>
+      <div class="footer-secundario">ETEC Bento Quirino · 2026</div>
 
-  </div>
+      <div class="footer-contatos">
+        <a href="mailto:projetosipdus@gmail.com">projetosipdus@gmail.com</a>
+        ·
+        <a href="https://www.instagram.com/sipdus/?hl=pt" target="_blank">@sipdus</a>
+        ·
+        <a href="https://www.linkedin.com/in/sipdus-glicos%C3%ADmetro-n%C3%A3o-invasivo-3091ba389/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Menu toggle
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true' ? false : true;
+      toggle.setAttribute('aria-expanded', expanded);
+      menu.classList.toggle('aberto');
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('aberto');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Validação do formulário e feedback
+    const form = document.getElementById('formContato');
+    const feedback = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', function(e) {
+      // Validação básica antes de enviar
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const assunto = document.getElementById('assunto').value;
+      const mensagem = document.getElementById('mensagem').value.trim();
+
+      if (!nome || !email || !assunto || !mensagem) {
+        e.preventDefault();
+        feedback.className = 'form-mensagem erro';
+        feedback.textContent = 'Preencha todos os campos obrigatorios.';
+        return;
+      }
+
+      // Validação de email simples
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        e.preventDefault();
+        feedback.className = 'form-mensagem erro';
+        feedback.textContent = 'Por favor, insira um email valido.';
+        return;
+      }
+
+      // Se validou, mostra mensagem de sucesso (o formsubmit envia o email)
+      feedback.className = 'form-mensagem sucesso';
+      feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+    });
+
+    // Se a URL tiver ?enviado=true, mostra mensagem de sucesso
+    if (window.location.search.includes('enviado=true')) {
+      feedback.className = 'form-mensagem sucesso';
+      feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+      // Remove o parametro da URL sem recarregar
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  </script>
 </body>
 </html>
